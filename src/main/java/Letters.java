@@ -3,7 +3,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * Реализовал енум для универсальности, вдруг Microsoft решит переделать наименования столбцов в таблицах, будет проще исправлять=)
+ * В первой реализации использовал обачный массив в качестве хранилища, но потом рещил реализовать енум,
+ * вдруг Microsoft решит переделать наименования столбцов в таблицах, будет проще исправлять=)
  * Скорость доступа будет O(n), но зато его можно будет использовать где нибудь еще.
  */
 public enum Letters {
@@ -41,17 +42,17 @@ public enum Letters {
         this.c = c;
     }
 
-    public static String getLetter(int v) {
-        Optional<Letters> optional = Arrays.stream(values()).filter(l -> l.v == v).findFirst();
-        return optional.map(letters -> String.valueOf(letters.c)).orElse("");
-    }
-
     @Override
     public String toString() {
         return String.valueOf(c);
     }
 
     public static int length() {
-        return values().length;
+            return values().length;
+        }
+
+    public static String getLetter(int v) {
+        Optional<Letters> optional = Arrays.stream(values()).filter(l -> l.v == v).findFirst();
+        return optional.map(Letters::toString).orElse("");
     }
 }
