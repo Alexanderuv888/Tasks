@@ -4,23 +4,26 @@ import java.util.stream.Collectors;
 public class IntToXlsConverter {
     static final char[] MASK = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
-    public static String convert(int val) {
+    public static StringBuilder convert(StringBuilder sb, int val) {
+        if (val<=0) {
+            return sb;
+        }
         if (val <= MASK.length) {
-            return String.valueOf(MASK[val-1]);
+            return sb.append(MASK[val-1]);
         }
         int whole = val/MASK.length;
         int reminder = val % MASK.length;
-        return new StringBuilder(convert(whole))
-                .append(MASK[reminder-1]).toString();
+        return convert(sb, whole)
+                .append(MASK[reminder-1]);
     }
 
     public static String getColName(int... vals) {
-        return Arrays.stream(vals).mapToObj(v -> new StringBuilder()
-                .append(v)
-                .append(":")
-                .append(convert(v))
-                .append('\n')
-                .toString()
+        return Arrays.stream(vals).mapToObj(v ->
+                convert(new StringBuilder()
+                        .append(v)
+                        .append(":"), v)
+                        .append('\n')
+                        .toString()
         ).collect(Collectors.joining());
     }
 
