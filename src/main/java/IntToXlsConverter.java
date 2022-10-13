@@ -5,7 +5,7 @@ public class IntToXlsConverter {
     static final char[] MASK = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
     public static StringBuilder convert(StringBuilder sb, int val) {
-        if (val<=0) {
+        if (val<=0 || sb == null) {
             return sb;
         }
         if (val <= MASK.length) {
